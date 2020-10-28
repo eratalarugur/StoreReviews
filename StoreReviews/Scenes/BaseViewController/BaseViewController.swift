@@ -14,7 +14,7 @@ protocol BaseViewControllerProtocol: class {
 class BaseViewController: UIViewController, BaseViewControllerProtocol {
 	
 	override func viewDidLoad() {
-		self.view.backgroundColor = .red
+		self.view.backgroundColor = .systemGroupedBackground
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

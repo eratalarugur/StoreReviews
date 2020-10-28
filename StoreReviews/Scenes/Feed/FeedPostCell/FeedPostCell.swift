@@ -65,7 +65,6 @@ class FeedPostCell: UICollectionViewCell {
 	
 	// MARK: - Setup
 	func setupUI() {
-		
 		//** bigContainer
 		addSubview(bigContainer)
 		bigContainer.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 20, paddingBottom: 10, paddingRight: 20, width: 0, height: 0)

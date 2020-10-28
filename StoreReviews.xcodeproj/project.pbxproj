@@ -25,6 +25,9 @@
 		1FCCA84B2547B5AA008E3D74 /* ReviewApplicationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA84A2547B5AA008E3D74 /* ReviewApplicationModel.swift */; };
 		1FCCA84F2547B660008E3D74 /* AppStoreReviewResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA84E2547B660008E3D74 /* AppStoreReviewResponseModel.swift */; };
 		1FCCA8582547C3E1008E3D74 /* UICollectionViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA8572547C3E1008E3D74 /* UICollectionViewCellExtension.swift */; };
+		1FCCA86725490BB6008E3D74 /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA86625490BB6008E3D74 /* FeedDetailViewController.swift */; };
+		1FCCA86B25490BC4008E3D74 /* FeedDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA86A25490BC4008E3D74 /* FeedDetailInteractor.swift */; };
+		1FCCA86E25490BCB008E3D74 /* FeedDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA86D25490BCB008E3D74 /* FeedDetailPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +51,9 @@
 		1FCCA84A2547B5AA008E3D74 /* ReviewApplicationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewApplicationModel.swift; sourceTree = "<group>"; };
 		1FCCA84E2547B660008E3D74 /* AppStoreReviewResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewResponseModel.swift; sourceTree = "<group>"; };
 		1FCCA8572547C3E1008E3D74 /* UICollectionViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellExtension.swift; sourceTree = "<group>"; };
+		1FCCA86625490BB6008E3D74 /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
+		1FCCA86A25490BC4008E3D74 /* FeedDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailInteractor.swift; sourceTree = "<group>"; };
+		1FCCA86D25490BCB008E3D74 /* FeedDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,13 +86,11 @@
 		1FCCA7D925458BBC008E3D74 /* StoreReviews */ = {
 			isa = PBXGroup;
 			children = (
+				1FCCA86425490B54008E3D74 /* AppDelegate */,
 				1FCCA8472547B555008E3D74 /* Models */,
 				1FCCA80F2545932B008E3D74 /* Scenes */,
-				1FCCA7DA25458BBC008E3D74 /* AppDelegate.swift */,
-				1FCCA7DC25458BBC008E3D74 /* SceneDelegate.swift */,
-				1FCCA7E325458BBF008E3D74 /* Assets.xcassets */,
-				1FCCA7E525458BBF008E3D74 /* LaunchScreen.storyboard */,
-				1FCCA7E825458BBF008E3D74 /* Info.plist */,
+				1FCCA86325490AFD008E3D74 /* Utils */,
+				1FCCA82A2545AD34008E3D74 /* Supporting Files */,
 			);
 			path = StoreReviews;
 			sourceTree = "<group>";
@@ -95,13 +99,13 @@
 			isa = PBXGroup;
 			children = (
 				1FCCA81525459382008E3D74 /* BaseViewController */,
-				1FCCA81025459331008E3D74 /* FeedViewController */,
-				1FCCA82A2545AD34008E3D74 /* Supporting Files */,
+				1FCCA81025459331008E3D74 /* Feed */,
+				1FCCA86225490AC7008E3D74 /* Feed Detail */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		1FCCA81025459331008E3D74 /* FeedViewController */ = {
+		1FCCA81025459331008E3D74 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
 				1FCCA82F2545AE0B008E3D74 /* FeedPostCell */,
@@ -110,7 +114,7 @@
 				1FCCA8272545A4B3008E3D74 /* FeedPresenter.swift */,
 				1FCCA8442547B4C4008E3D74 /* FeedCollectionViewAdapter.swift */,
 			);
-			path = FeedViewController;
+			path = Feed;
 			sourceTree = "<group>";
 		};
 		1FCCA81525459382008E3D74 /* BaseViewController */ = {
@@ -126,8 +130,9 @@
 		1FCCA82A2545AD34008E3D74 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1FCCA8362545B217008E3D74 /* Extensions */,
-				1FCCA82E2545ADD1008E3D74 /* Helper */,
+				1FCCA7E325458BBF008E3D74 /* Assets.xcassets */,
+				1FCCA7E825458BBF008E3D74 /* Info.plist */,
+				1FCCA7E525458BBF008E3D74 /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -181,6 +186,34 @@
 				1FCCA84A2547B5AA008E3D74 /* ReviewApplicationModel.swift */,
 			);
 			path = "Application Models";
+			sourceTree = "<group>";
+		};
+		1FCCA86225490AC7008E3D74 /* Feed Detail */ = {
+			isa = PBXGroup;
+			children = (
+				1FCCA86625490BB6008E3D74 /* FeedDetailViewController.swift */,
+				1FCCA86A25490BC4008E3D74 /* FeedDetailInteractor.swift */,
+				1FCCA86D25490BCB008E3D74 /* FeedDetailPresenter.swift */,
+			);
+			path = "Feed Detail";
+			sourceTree = "<group>";
+		};
+		1FCCA86325490AFD008E3D74 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1FCCA8362545B217008E3D74 /* Extensions */,
+				1FCCA82E2545ADD1008E3D74 /* Helper */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1FCCA86425490B54008E3D74 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1FCCA7DA25458BBC008E3D74 /* AppDelegate.swift */,
+				1FCCA7DC25458BBC008E3D74 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,12 +291,15 @@
 				1FCCA8382545B242008E3D74 /* UIViewExtension.swift in Sources */,
 				1FCCA82C2545AD57008E3D74 /* TypeHelper.swift in Sources */,
 				1FCCA8282545A4B3008E3D74 /* FeedPresenter.swift in Sources */,
+				1FCCA86E25490BCB008E3D74 /* FeedDetailPresenter.swift in Sources */,
 				1FCCA81F254597B8008E3D74 /* BaseInteractor.swift in Sources */,
 				1FCCA8312545AE20008E3D74 /* FeedPostCell.swift in Sources */,
 				1FCCA8252545A2D8008E3D74 /* FeedInteractor.swift in Sources */,
 				1FCCA8172545938B008E3D74 /* BaseViewController.swift in Sources */,
 				1FCCA84F2547B660008E3D74 /* AppStoreReviewResponseModel.swift in Sources */,
+				1FCCA86725490BB6008E3D74 /* FeedDetailViewController.swift in Sources */,
 				1FCCA81225459353008E3D74 /* FeedViewController.swift in Sources */,
+				1FCCA86B25490BC4008E3D74 /* FeedDetailInteractor.swift in Sources */,
 				1FCCA7DD25458BBC008E3D74 /* SceneDelegate.swift in Sources */,
 				1FCCA8452547B4C4008E3D74 /* FeedCollectionViewAdapter.swift in Sources */,
 				1FCCA84B2547B5AA008E3D74 /* ReviewApplicationModel.swift in Sources */,
@@ -408,7 +444,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75S2KJNBB7;
-				INFOPLIST_FILE = StoreReviews/Info.plist;
+				INFOPLIST_FILE = "StoreReviews/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -427,7 +463,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75S2KJNBB7;
-				INFOPLIST_FILE = StoreReviews/Info.plist;
+				INFOPLIST_FILE = "StoreReviews/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -14,9 +14,8 @@ protocol FeedViewControllerProtocol: BaseViewControllerProtocol {
 
 class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout {
 	
-	static let sceneTitle = "Feeds"
-	
 	// MARK: - Properties -
+	let sceneTitle = "Feeds"
 	var filteredReviewList = [ReviewApplicationModel]()
 	var reviewList = [ReviewApplicationModel]()
 	var interactor: FeedInteractorProtocol?
@@ -34,11 +33,19 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	
 	lazy var searchBar: UISearchBar = {
 		let searchBar = UISearchBar()
-		searchBar.placeholder = "Enter Key to search"
+		searchBar.placeholder = "Enter Key to search" 
 		searchBar.delegate = self
+		searchBar.sizeToFit()
+		searchBar.alpha = 0
 		return searchBar
 	}()
 	
+	var searchBarContainer: UIView = {
+		let view = UIView()
+		view.backgroundColor = .systemRed
+		return view
+	}()
+
 	// MARK: - Lifecycle -
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -47,6 +54,7 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
 		interactor?.getFeeds()
 	}
 	
@@ -61,10 +69,10 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	}
 	
 	func configureView() {
-		self.view.backgroundColor = UIColor.rgb(red: 245, green: 245, blue: 245)
-		navigationItem.title = FeedViewController.sceneTitle
+		navigationItem.title = sceneTitle
+		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(searchButtonTapped))
+		navigationItem.titleView = searchBar
 		setupCollectionView()
-		setupSearchBar()
 	}
 	
 	func setupCollectionView() {
@@ -74,19 +82,29 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		self.feedCollectionView.alwaysBounceVertical = true
 		self.feedCollectionView.keyboardDismissMode = .onDrag
 	}
-	func setupSearchBar() {
-//		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(searchButtonTapped))
-		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(searchButtonTapped))
-//		let navBar = navigationController?.navigationBar
-//		searchBar.anchor(top: navBar?.topAnchor, left: navBar?.leftAnchor, bottom: navBar?.bottomAnchor, right: navBar?.rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
+	
+	func showHideSearchBar(show: Bool) {
+		let alpha: CGFloat = show ? 1 : 0
+		UIView.animate(withDuration: 0.5) {
+			self.searchBar.alpha = alpha
+		}
 	}
 	
+	//	MARK: - Selectors -
 	@objc func searchButtonTapped() {
-		print("search button tapped!")
+		showHideSearchBar(show: true)
+		let detailVC = FeedDetailViewController()
+		present(detailVC, animated: true, completion: nil)
+	}
+	
+	@objc func keyboardWillDisappear() {
+		showHideSearchBar(show: false)
 	}
 }
 extension FeedViewController: FeedCollectionViewAdapterDelegate {
 	func didSelectItem(with: ReviewApplicationModel) {
+		let detailVC = FeedDetailViewController()
+		present(detailVC, animated: true, completion: nil)
 	}
 }
 extension FeedViewController: FeedViewControllerProtocol {
