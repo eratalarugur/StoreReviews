@@ -60,7 +60,7 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	
 	// MARK: - Setup -
 	func setup() {
-		let interactor = FeedInteractor()
+		let interactor = FeedInteractor(networkService: APIClient.shared)
 		let presenter = FeedPresenter()
 		presenter.viewController = self
 		interactor.presenter = presenter

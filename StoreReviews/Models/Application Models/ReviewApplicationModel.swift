@@ -15,13 +15,13 @@ struct ReviewApplicationModel {
 	var username: String
 	var version: String
 	
-	init(with appStoreReviewResponseModel: AppStoreReviewResponseModel) {
+	init(with entry: EntryResponseModel) {
 		
-		self.reviewTitle = appStoreReviewResponseModel.reviewTitle
-		self.rating = appStoreReviewResponseModel.rating
-		self.reviewDescription = appStoreReviewResponseModel.reviewDescription
-		self.username = appStoreReviewResponseModel.username
-		self.version = appStoreReviewResponseModel.version
+		self.reviewTitle = entry.entryTitle.label
+		self.rating = entry.rating.label
+		self.reviewDescription = entry.content.label
+		self.username = entry.author.name.label
+		self.version = entry.version.label
 		
 	}
 	

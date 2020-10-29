@@ -8,9 +8,14 @@
 import Foundation
 
 protocol BaseInteractorProtocol: class {
-	
 }
 
 class BaseInteractor: BaseInteractorProtocol {
+	internal var networkService: APIClient!
 	
+	init(networkService: APIClient? = nil) {
+		if let networkService = networkService {
+			self.networkService = networkService
+		}
+	}
 }

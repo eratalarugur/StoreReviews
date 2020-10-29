@@ -18,6 +18,16 @@ class FeedInteractor: BaseInteractor, FeedInteractorProtocol {
 	
 	// MARK: - Business -
 	func getFeeds() {
+		self.networkService.request(response: AppStoreReviewResponseModel.self, router: APIRouter.appStoreReviews) { (response) in
+			
+			switch response {
+			case .success(let responseResult):
+				print(responseResult)
+				
+			case .failure(let err):
+				print(err)
+			}
+		}
 		self.presenter?.showFeeds()
 	}
 }
