@@ -36,7 +36,6 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		searchBar.placeholder = "Enter Key to search" 
 		searchBar.delegate = self
 		searchBar.sizeToFit()
-		searchBar.alpha = 0
 		return searchBar
 	}()
 	
@@ -54,7 +53,6 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
 		interactor?.getFeeds()
 	}
 	
@@ -82,21 +80,10 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		self.feedCollectionView.alwaysBounceVertical = true
 		self.feedCollectionView.keyboardDismissMode = .onDrag
 	}
-	
-	func showHideSearchBar(show: Bool) {
-		let alpha: CGFloat = show ? 1 : 0
-		UIView.animate(withDuration: 0.5) {
-			self.searchBar.alpha = alpha
-		}
-	}
-	
+
 	//	MARK: - Selectors -
 	@objc func searchButtonTapped() {
-		showHideSearchBar(show: true)
-	}
-	
-	@objc func keyboardWillDisappear() {
-		showHideSearchBar(show: false)
+		print("what the search!")
 	}
 }
 extension FeedViewController: FeedCollectionViewAdapterDelegate {
@@ -113,7 +100,8 @@ extension FeedViewController: FeedViewControllerProtocol {
 	}
 }
 extension FeedViewController: UISearchBarDelegate {
-	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+	func searchBar(_ searchBar: UISearchBar,textDidChange searchText: String) {
+		print("\nsearchText: ", searchText)
 		if searchText.isEmpty {
 			filteredReviewList = reviewList
 		} else {
@@ -121,7 +109,6 @@ extension FeedViewController: UISearchBarDelegate {
 				return true
 			}
 		}
-		self.feedCollectionView.reloadData()
 	}
 }
 
