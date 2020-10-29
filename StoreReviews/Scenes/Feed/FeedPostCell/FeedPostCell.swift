@@ -72,31 +72,30 @@ class FeedPostCell: UICollectionViewCell {
 		//** versionInfoLabel
 		bigContainer.addSubview(versionInfoLabel)
 		versionInfoLabel.anchor(top: bigContainer.topAnchor, left: nil, bottom: nil, right: bigContainer.rightAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 10, width: 0, height: 20)
-		versionInfoLabel.text = "v3.12"
 		
 		//** usernameLabel
 		bigContainer.addSubview(usernameLabel)
 		usernameLabel.anchor(top: versionInfoLabel.bottomAnchor, left: nil, bottom: nil, right: bigContainer.rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 10, width: 0, height: 10)
-		usernameLabel.text = "Dan Auber"
 
 		//** feedTitleLabel
 		bigContainer.addSubview(feedTitleLabel)
 		feedTitleLabel.anchor(top: bigContainer.topAnchor, left: bigContainer.leftAnchor, bottom: nil, right: versionInfoLabel.leftAnchor, paddingTop: 10, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 0, height: 20)
-		feedTitleLabel.text = "Could be better.."
 
 		//** ratingLabel
 		bigContainer.addSubview(ratingLabel)
 		ratingLabel.anchor(top: feedTitleLabel.bottomAnchor, left: bigContainer.leftAnchor, bottom: nil, right: usernameLabel.leftAnchor, paddingTop: 8, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 0, height: 10)
-		ratingLabel.text = "⭐️⭐️⭐️"
 
 		//** feedDescriptionLabel
 		bigContainer.addSubview(feedDescriptionLabel)
-		feedDescriptionLabel.anchor(top: ratingLabel.bottomAnchor, left: bigContainer.leftAnchor, bottom: bigContainer.bottomAnchor, right: bigContainer.rightAnchor, paddingTop: 5, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 0, height: 0)
-		feedDescriptionLabel.text = "Buralara yaz gunu kar yagiyor canim olene kadar seni bekleyemem. ona buna benzemem oyuna gelmem senin icin olmeye soz veremem nu kar yagiyor canim olene kadar seni bekleyemem. ona buna benzemem oyuna gelmem senin icin olmeye soz veremem"
+		feedDescriptionLabel.anchor(top: ratingLabel.bottomAnchor, left: bigContainer.leftAnchor, bottom: nil, right: bigContainer.rightAnchor, paddingTop: 15, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, width: 0, height: 0)
 	}
 	
 	func configure(with review: ReviewApplicationModel) {
 		self.review = review
+		versionInfoLabel.text = self.review?.version
+		usernameLabel.text = self.review?.username
+		feedTitleLabel.text = self.review?.reviewTitle
+		ratingLabel.text = String(repeating: "⭐️", count: Int(review.rating) ?? 0)
+		feedDescriptionLabel.text = self.review?.reviewDescription
 	}
-	
 }

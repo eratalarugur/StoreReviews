@@ -8,7 +8,11 @@
 import UIKit
 
 protocol FeedCollectionViewAdapterDelegate: class {
-	func didSelectItem(with: ReviewApplicationModel)
+	func didSelectItem(review: ReviewApplicationModel)
+}
+
+protocol FeedCollectionViewAdapterProtocol {
+	func updateDatasource(dataSource: [ReviewApplicationModel])
 }
 
 class FeedCollectionViewAdapter: NSObject {
@@ -45,13 +49,14 @@ extension FeedCollectionViewAdapter: UICollectionViewDataSource {
 	}
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //		return dataSource.count
-		return 5
+		return self.dataSource.count
 	}
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCollectionViewAdapter.cellName, for: indexPath) as? FeedPostCell else { return UICollectionViewCell() }
-		
-//		let review = dataSource[indexPath.item]
-//		cell.configure(with: review)
+		if self.dataSource.count > 0 {
+			let review = self.dataSource[indexPath.item]
+			cell.configure(with: review)
+		}
 		return cell
 	}
 }
@@ -60,13 +65,20 @@ extension FeedCollectionViewAdapter: UICollectionViewDelegate {
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		print("review selected")
-//		let review = dataSource[indexPath.item]
-//		delegate?.didSelectItem(with: review)
+		let review = dataSource[indexPath.item]
+		delegate?.didSelectItem(review: review)
 	}
 }
 
 extension FeedCollectionViewAdapter: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: collectionView.frame.size.width, height: 160)
+		return CGSize(width: collectionView.frame.size.width, height: 130)
+	}
+}
+
+extension FeedCollectionViewAdapter: FeedCollectionViewAdapterProtocol {
+	func updateDatasource(dataSource: [ReviewApplicationModel]) {
+		self.dataSource = dataSource
+		self.feedCollectioinView.reloadData()
 	}
 }

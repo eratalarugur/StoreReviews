@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol FeedViewControllerProtocol: BaseViewControllerProtocol {
-	func displayFeeds()
+	func displayFeeds(reviews: [ReviewApplicationModel])
 }
 
 class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout {
@@ -93,8 +93,6 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	//	MARK: - Selectors -
 	@objc func searchButtonTapped() {
 		showHideSearchBar(show: true)
-		let detailVC = FeedDetailViewController()
-		present(detailVC, animated: true, completion: nil)
 	}
 	
 	@objc func keyboardWillDisappear() {
@@ -102,14 +100,16 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	}
 }
 extension FeedViewController: FeedCollectionViewAdapterDelegate {
-	func didSelectItem(with: ReviewApplicationModel) {
+	func didSelectItem(review: ReviewApplicationModel) {
 		let detailVC = FeedDetailViewController()
+		detailVC.review = review
 		present(detailVC, animated: true, completion: nil)
 	}
 }
 extension FeedViewController: FeedViewControllerProtocol {
-	func displayFeeds() {
-		print("display feeds")
+	func displayFeeds(reviews: [ReviewApplicationModel]) {
+		reviewList = reviews
+		self.feedCollectionViewAdapter?.updateDatasource(dataSource: reviewList)
 	}
 }
 extension FeedViewController: UISearchBarDelegate {

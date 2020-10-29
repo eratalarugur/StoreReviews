@@ -77,6 +77,7 @@ class FeedDetailViewController: BaseViewController, FeedDetailViewControllerProt
 			sceneTitleLabel.text = sceneTitle
 		}
 	}
+	var review: ReviewApplicationModel?
 	var interactor: FeedDetailInteractorProtocol?
 	
 	// MARK: - Lifecycle -
@@ -94,7 +95,6 @@ class FeedDetailViewController: BaseViewController, FeedDetailViewControllerProt
 		interactor.presenter = presenter
 		self.interactor = interactor
 		configureView()
-		sceneTitle = "⭐️⭐️⭐️"
 	}
 	
 	func configureView() {
@@ -115,19 +115,26 @@ class FeedDetailViewController: BaseViewController, FeedDetailViewControllerProt
 		//** usernameLabel
 		self.view.addSubview(usernameLabel)
 		usernameLabel.anchor(top: topContainer.bottomAnchor, left: nil, bottom: nil, right: self.view.rightAnchor, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 0, height: 0)
-		usernameLabel.text = "Albert KIng"
+
 		//** versionInfoLabel
 		self.view.addSubview(versionInfoLabel)
 		versionInfoLabel.anchor(top: usernameLabel.bottomAnchor, left: nil, bottom: nil, right: self.view.rightAnchor, paddingTop: 5, paddingLeft: 0, paddingBottom: 0, paddingRight: 20, width: 0, height: 0)
-		versionInfoLabel.text = "v3.12"
+ 
 		//** titleLabel
 		self.view.addSubview(titleLabel)
 		titleLabel.anchor(top: topContainer.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: usernameLabel.leftAnchor, paddingTop: 50, paddingLeft: 20, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
-		titleLabel.text = "Lemme tell you a story"
+
 		//** descriptionLabel
 		self.view.addSubview(descriptionLabel)
 		descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, paddingTop: 20, paddingLeft: 20, paddingBottom: 0, paddingRight: 20, width: 0, height: 0)
-		descriptionLabel.text = "oynama sikidim sikidim, oynama sikidim sikidim. ahh yanar doner aa acayipsin. kiz hepsi senin mi ynama sikidim sikidim, oynama sikidim sikidim. ahh yanar doner aa acayipsin. kiz hepsi senin mi ynama sikidim sikidim, oynama sikidim sikidim. ahh yanar doner aa acayipsin. kiz hepsi senin mi ynama sikidim sikidim, oynama sikidim sikidim. ahh yanar doner aa acayipsin. kiz hepsi senin mi ynama sikidim sikidim, oynama sikidim sikidim. ahh yanar doner aa acayipsin. kiz hepsi senin mi?"
+		
+		if let reviewObj = self.review {
+			usernameLabel.text = reviewObj.username
+			versionInfoLabel.text = reviewObj.version
+			titleLabel.text = review?.reviewTitle
+			sceneTitle = String(repeating: "⭐️", count: Int(reviewObj.rating) ?? 0)
+			descriptionLabel.text = reviewObj.reviewDescription
+		}
 	}
 	
 	@objc func dismissVC() {

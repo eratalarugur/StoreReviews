@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FeedPresenterProtocol: BasePresenterProtocol {
-	func showFeeds()
+	func showAppstoreReviews(appStoreReviews: AppStoreReviewResponseModel)
 }
 
 class FeedPresenter: BasePresenter, FeedPresenterProtocol {
@@ -17,7 +17,9 @@ class FeedPresenter: BasePresenter, FeedPresenterProtocol {
 	var viewController: FeedViewControllerProtocol?
 	
 	// MARK: - Delegates -
-	func showFeeds() {
-		viewController?.displayFeeds()
+	func showAppstoreReviews(appStoreReviews: AppStoreReviewResponseModel) {
+		let reviewList = appStoreReviews.feed.entry
+		let reviews = reviewList.map ( { return ReviewApplicationModel(with: $0)} )
+		viewController?.displayFeeds(reviews: reviews)
 	}
 }

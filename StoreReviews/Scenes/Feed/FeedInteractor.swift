@@ -23,11 +23,11 @@ class FeedInteractor: BaseInteractor, FeedInteractorProtocol {
 			switch response {
 			case .success(let responseResult):
 				print(responseResult)
-				
+				self.presenter?.showAppstoreReviews(appStoreReviews: responseResult)
+
 			case .failure(let err):
 				print(err)
 			}
 		}
-		self.presenter?.showFeeds()
 	}
 }
