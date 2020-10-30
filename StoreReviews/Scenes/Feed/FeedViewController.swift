@@ -36,6 +36,7 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		searchBar.placeholder = "Enter Key to search" 
 		searchBar.delegate = self
 		searchBar.sizeToFit()
+		searchBar.searchTextField.delegate = self
 		return searchBar
 	}()
 	
@@ -119,6 +120,12 @@ extension FeedViewController: UISearchBarDelegate {
 			filteredReviewList = reviewList
 			feedCollectionViewAdapter?.updateDatasource(dataSource: self.filteredReviewList)
 		}
+	}
+}
+extension FeedViewController: UISearchTextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		self.searchButtonTapped()
+		return true
 	}
 }
 

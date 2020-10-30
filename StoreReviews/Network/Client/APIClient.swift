@@ -39,7 +39,6 @@ final class APIClient {
 			}
 		default:
 			guard let dataJson = String(data: data!, encoding: String.Encoding.utf8) else { return completion(.failure(.unknown)) }
-			print("dataJson: ", dataJson as Any)
 			completion(.failure(.unknown))
 		}
 	}

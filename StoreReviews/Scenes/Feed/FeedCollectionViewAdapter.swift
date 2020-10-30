@@ -64,7 +64,6 @@ extension FeedCollectionViewAdapter: UICollectionViewDataSource {
 extension FeedCollectionViewAdapter: UICollectionViewDelegate {
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print("review selected")
 		let review = dataSource[indexPath.item]
 		delegate?.didSelectItem(review: review)
 	}
