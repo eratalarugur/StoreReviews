@@ -48,7 +48,6 @@ extension FeedCollectionViewAdapter: UICollectionViewDataSource {
 		return 1
 	}
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//		return dataSource.count
 		return self.dataSource.count
 	}
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -16,6 +16,7 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	
 	// MARK: - Properties -
 	let sceneTitle = FEEDS_VC_SCENE_TITLE
+	var allReviews = [ReviewApplicationModel]()
 	var filteredReviewList = [ReviewApplicationModel]()
 	var reviewList = [ReviewApplicationModel]()
 	var interactor: FeedInteractorProtocol?
@@ -97,14 +98,14 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		
 		let bar = UIToolbar()
 		bar.items = []
-		let totalCount = sortedSearch.count > 3 ? 2 : sortedSearch.count
-		for i in 0...totalCount {
+		let totalCount = sortedSearch.count > 3 ? 3 : sortedSearch.count
+		for i in 0..<totalCount {
 			let t = sortedSearch[i]
 			let suggestion = UIBarButtonItem(title: t.key, style: .plain, target: self, action: #selector(keyTapped(sender:)))
 			let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 			bar.items?.append(space)
 			bar.items?.append(suggestion)
-			if i == totalCount {
+			if i == totalCount - 1 {
 				bar.items?.append(space)
 			}
 		}
@@ -119,10 +120,10 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		guard let searchText = searchBar.searchTextField.text else { return }
 		if searchText == lastSearchKey { return }
 		if searchText.isEmpty {
-			filteredReviewList = reviewList
+			self.reviewList = self.allReviews
 			searchBar.resignFirstResponder()
 		} else {
-			self.filteredReviewList = self.reviewList.filter {
+			self.reviewList = self.allReviews.filter {
 				$0.reviewTitle.range(of: searchText, options: .caseInsensitive) != nil ||
 				$0.reviewDescription.range(of: searchText, options: .caseInsensitive) != nil ||
 				$0.username.range(of: searchText, options: .caseInsensitive) != nil ||
@@ -132,7 +133,7 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		}
 		lastSearchKey = searchText
 		saveSearchedKeys(searchText: searchText)
-		feedCollectionViewAdapter?.updateDatasource(dataSource: self.filteredReviewList)
+		feedCollectionViewAdapter?.updateDatasource(dataSource: self.reviewList)
 	}
 	
 	func saveSearchedKeys(searchText: String) {
@@ -163,15 +164,16 @@ extension FeedViewController: FeedCollectionViewAdapterDelegate {
 }
 extension FeedViewController: FeedViewControllerProtocol {
 	func displayFeeds(reviews: [ReviewApplicationModel]) {
-		reviewList = reviews
+		self.allReviews = reviews
+		self.reviewList = self.allReviews
 		self.feedCollectionViewAdapter?.updateDatasource(dataSource: reviewList)
 	}
 }
 extension FeedViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar,textDidChange searchText: String) {
 		if searchText.isEmpty {
-			filteredReviewList = reviewList
-			feedCollectionViewAdapter?.updateDatasource(dataSource: self.filteredReviewList)
+			self.reviewList = self.allReviews
+			feedCollectionViewAdapter?.updateDatasource(dataSource: self.reviewList)
 		}
 	}
 }

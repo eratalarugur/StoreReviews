@@ -28,7 +28,7 @@ class FeedDetailViewController: BaseViewController, FeedDetailViewControllerProt
 		return label
 	}()
 	
-	var closeButton: UIButton = {
+	lazy var closeButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setImage(UIImage(systemName: "xmark.circle")?.withRenderingMode(.alwaysOriginal), for: .normal)
 		button.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
@@ -84,6 +84,10 @@ class FeedDetailViewController: BaseViewController, FeedDetailViewControllerProt
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = .white
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(true)
 		setup()
 	}
 	
