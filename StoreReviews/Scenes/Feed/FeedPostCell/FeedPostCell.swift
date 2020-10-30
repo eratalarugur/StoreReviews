@@ -95,7 +95,7 @@ class FeedPostCell: UICollectionViewCell {
 		versionInfoLabel.text = self.review?.version
 		usernameLabel.text = self.review?.username
 		feedTitleLabel.text = self.review?.reviewTitle
-		ratingLabel.text = String(repeating: "⭐️", count: Int(review.rating) ?? 0)
+		ratingLabel.text = self.review?.rating
 		feedDescriptionLabel.text = self.review?.reviewDescription
 	}
 }

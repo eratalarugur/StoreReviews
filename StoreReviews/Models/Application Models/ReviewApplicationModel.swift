@@ -18,7 +18,7 @@ struct ReviewApplicationModel {
 	init(with entry: EntryResponseModel) {
 		
 		self.reviewTitle = entry.entryTitle.label
-		self.rating = entry.rating.label
+		self.rating = String(repeating: "⭐️", count: Int(entry.rating.label) ?? 0)
 		self.reviewDescription = entry.content.label
 		self.username = entry.author.name.label
 		self.version = entry.version.label

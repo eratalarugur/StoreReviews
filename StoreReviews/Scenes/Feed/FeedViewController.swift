@@ -85,7 +85,6 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	@objc func searchButtonTapped() {
 		
 		guard let searchText = searchBar.searchTextField.text else { return }
-		
 		if searchText.isEmpty {
 			filteredReviewList = reviewList
 			searchBar.resignFirstResponder()
@@ -94,7 +93,8 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 				$0.reviewTitle.range(of: searchText, options: .caseInsensitive) != nil ||
 				$0.reviewDescription.range(of: searchText, options: .caseInsensitive) != nil ||
 				$0.username.range(of: searchText, options: .caseInsensitive) != nil ||
-				$0.version.range(of: searchText, options: .caseInsensitive) != nil
+				$0.version.range(of: searchText, options: .caseInsensitive) != nil ||
+				$0.rating.elementsEqual(searchText)
 			}
 		}
 		feedCollectionViewAdapter?.updateDatasource(dataSource: self.filteredReviewList)
