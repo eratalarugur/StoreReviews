@@ -83,7 +83,21 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 
 	//	MARK: - Selectors -
 	@objc func searchButtonTapped() {
-		print("what the search!")
+		
+		guard let searchText = searchBar.searchTextField.text else { return }
+		
+		if searchText.isEmpty {
+			filteredReviewList = reviewList
+			searchBar.resignFirstResponder()
+		} else {
+			self.filteredReviewList = self.reviewList.filter {
+				$0.reviewTitle.range(of: searchText, options: .caseInsensitive) != nil ||
+				$0.reviewDescription.range(of: searchText, options: .caseInsensitive) != nil ||
+				$0.username.range(of: searchText, options: .caseInsensitive) != nil ||
+				$0.version.range(of: searchText, options: .caseInsensitive) != nil
+			}
+		}
+		feedCollectionViewAdapter?.updateDatasource(dataSource: self.filteredReviewList)
 	}
 }
 extension FeedViewController: FeedCollectionViewAdapterDelegate {
@@ -101,14 +115,11 @@ extension FeedViewController: FeedViewControllerProtocol {
 }
 extension FeedViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar,textDidChange searchText: String) {
-		print("\nsearchText: ", searchText)
 		if searchText.isEmpty {
 			filteredReviewList = reviewList
-		} else {
-			self.filteredReviewList = self.reviewList.filter { (key) -> Bool in
-				return true
-			}
+			feedCollectionViewAdapter?.updateDatasource(dataSource: self.filteredReviewList)
 		}
 	}
 }
+
 
