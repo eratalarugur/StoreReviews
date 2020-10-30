@@ -18,15 +18,21 @@ class FeedInteractor: BaseInteractor, FeedInteractorProtocol {
 	
 	// MARK: - Business -
 	func getFeeds() {
-		self.networkService.request(response: AppStoreReviewResponseModel.self, router: APIRouter.appStoreReviews) { (response) in
-			
-			switch response {
-			case .success(let responseResult):
-				self.presenter?.showAppstoreReviews(appStoreReviews: responseResult)
 
-			case .failure(let err):
-				print(err)
+		if Reachability.isConnectedToNetwork() {
+			self.networkService.request(response: AppStoreReviewResponseModel.self, router: APIRouter.appStoreReviews) { (response) in
+				
+				switch response {
+				case .success(let responseResult):
+					self.presenter?.showAppstoreReviews(appStoreReviews: responseResult)
+					
+				case .failure(let err):
+					print("error: ", err)
+					self.presenter?.showError(text: NETWORK_DATA_ERROR)
+				}
 			}
+		} else {
+			self.presenter?.showError(text: INTERNET_ERROR_MESSAGE)
 		}
 	}
 }

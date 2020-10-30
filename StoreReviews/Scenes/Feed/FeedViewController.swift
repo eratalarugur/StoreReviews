@@ -15,7 +15,7 @@ protocol FeedViewControllerProtocol: BaseViewControllerProtocol {
 class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout {
 	
 	// MARK: - Properties -
-	let sceneTitle = "Feeds"
+	let sceneTitle = FEEDS_VC_SCENE_TITLE
 	var filteredReviewList = [ReviewApplicationModel]()
 	var reviewList = [ReviewApplicationModel]()
 	var interactor: FeedInteractorProtocol?
@@ -33,13 +33,19 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	
 	lazy var searchBar: UISearchBar = {
 		let searchBar = UISearchBar()
-		searchBar.placeholder = "Enter Key to search" 
+		searchBar.placeholder = SEARCH_BAR_PLACEHOLDER
 		searchBar.delegate = self
 		searchBar.sizeToFit()
 		searchBar.searchTextField.delegate = self
 		return searchBar
 	}()
-	
+
+	@objc func keyTapped(sender: UIBarButtonItem) {
+		if let searchKey = sender.title {
+			searchBar.searchTextField.text = searchKey
+			self.searchButtonTapped()
+		}
+	}
 	var searchBarContainer: UIView = {
 		let view = UIView()
 		view.backgroundColor = .systemRed
@@ -72,6 +78,7 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(searchButtonTapped))
 		navigationItem.titleView = searchBar
 		setupCollectionView()
+		setupSearchBar()
 	}
 	
 	func setupCollectionView() {
@@ -81,11 +88,36 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 		self.feedCollectionView.alwaysBounceVertical = true
 		self.feedCollectionView.keyboardDismissMode = .onDrag
 	}
+	
+	func setupSearchBar() {
+		guard let popularSearches = UserDefaults.standard.dictionary(forKey: SEARCH_KEYS) as? [String: Int] else { return }
+		let sortedSearch = popularSearches.sorted { (e1:(key: String, value: Int), e2:(key: String, value: Int)) -> Bool in
+			e1.1 > e2.1
+		}
+		
+		let bar = UIToolbar()
+		bar.items = []
+		let totalCount = sortedSearch.count > 3 ? 2 : sortedSearch.count
+		for i in 0...totalCount {
+			let t = sortedSearch[i]
+			let suggestion = UIBarButtonItem(title: t.key, style: .plain, target: self, action: #selector(keyTapped(sender:)))
+			let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+			bar.items?.append(space)
+			bar.items?.append(suggestion)
+			if i == totalCount {
+				bar.items?.append(space)
+			}
+		}
+		bar.sizeToFit()
+		self.searchBar.searchTextField.inputAccessoryView = bar
+	}
 
 	//	MARK: - Selectors -
+	var lastSearchKey = ""
 	@objc func searchButtonTapped() {
 		
 		guard let searchText = searchBar.searchTextField.text else { return }
+		if searchText == lastSearchKey { return }
 		if searchText.isEmpty {
 			filteredReviewList = reviewList
 			searchBar.resignFirstResponder()
@@ -98,7 +130,28 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 				$0.rating.elementsEqual(searchText)
 			}
 		}
+		lastSearchKey = searchText
+		saveSearchedKeys(searchText: searchText)
 		feedCollectionViewAdapter?.updateDatasource(dataSource: self.filteredReviewList)
+	}
+	
+	func saveSearchedKeys(searchText: String) {
+		if searchText.count > 3 {
+			var searches = Dictionary<String, Any>()
+
+			if var popularSearches = UserDefaults.standard.dictionary(forKey: SEARCH_KEYS) {
+				if popularSearches[searchText] != nil {
+					let updatedValue = (popularSearches[searchText]) as! Int + 1
+					popularSearches.updateValue(updatedValue, forKey: searchText)
+				} else {
+					popularSearches.updateValue(1, forKey: searchText)
+				}
+				searches = popularSearches
+			} else {
+				searches.updateValue(1, forKey: searchText)
+			}
+			UserDefaults.standard.setValue(searches, forKey: SEARCH_KEYS)
+		}
 	}
 }
 extension FeedViewController: FeedCollectionViewAdapterDelegate {
@@ -128,5 +181,3 @@ extension FeedViewController: UISearchTextFieldDelegate {
 		return true
 	}
 }
-
-

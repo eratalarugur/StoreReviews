@@ -9,6 +9,7 @@ import Foundation
 
 protocol FeedPresenterProtocol: BasePresenterProtocol {
 	func showAppstoreReviews(appStoreReviews: AppStoreReviewResponseModel)
+	func showError(text: String)
 }
 
 class FeedPresenter: BasePresenter, FeedPresenterProtocol {
@@ -21,5 +22,8 @@ class FeedPresenter: BasePresenter, FeedPresenterProtocol {
 		let reviewList = appStoreReviews.feed.entry
 		let reviews = reviewList.map ( { return ReviewApplicationModel(with: $0)} )
 		viewController?.displayFeeds(reviews: reviews)
+	}
+	func showError(text: String) {
+		viewController?.showError(text: text)
 	}
 }

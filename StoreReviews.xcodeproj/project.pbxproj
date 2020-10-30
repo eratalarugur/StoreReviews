@@ -18,6 +18,8 @@
 		1F6C5B31254AEEE6007BAF1F /* ContentTypeResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C5B30254AEEE6007BAF1F /* ContentTypeResponseModel.swift */; };
 		1F6C5B34254AF3DC007BAF1F /* FeedResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C5B33254AF3DC007BAF1F /* FeedResponseModel.swift */; };
 		1F6C5B39254BE950007BAF1F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C5B38254BE950007BAF1F /* StringExtension.swift */; };
+		1F6C5B3C254C2461007BAF1F /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C5B3B254C2461007BAF1F /* DictionaryExtension.swift */; };
+		1F6C5B4A254C3A70007BAF1F /* Connectivitiy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6C5B49254C3A70007BAF1F /* Connectivitiy.swift */; };
 		1FCCA7DB25458BBC008E3D74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA7DA25458BBC008E3D74 /* AppDelegate.swift */; };
 		1FCCA7DD25458BBC008E3D74 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCA7DC25458BBC008E3D74 /* SceneDelegate.swift */; };
 		1FCCA7E425458BBF008E3D74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCCA7E325458BBF008E3D74 /* Assets.xcassets */; };
@@ -65,6 +67,8 @@
 		1F6C5B30254AEEE6007BAF1F /* ContentTypeResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTypeResponseModel.swift; sourceTree = "<group>"; };
 		1F6C5B33254AF3DC007BAF1F /* FeedResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponseModel.swift; sourceTree = "<group>"; };
 		1F6C5B38254BE950007BAF1F /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		1F6C5B3B254C2461007BAF1F /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		1F6C5B49254C3A70007BAF1F /* Connectivitiy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivitiy.swift; sourceTree = "<group>"; };
 		1FCCA7D725458BBC008E3D74 /* StoreReviews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreReviews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCCA7DA25458BBC008E3D74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCCA7DC25458BBC008E3D74 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				1FCCA82B2545AD57008E3D74 /* TypeHelper.swift */,
+				1F6C5B49254C3A70007BAF1F /* Connectivitiy.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -225,6 +230,7 @@
 				1FCCA83B2545B24F008E3D74 /* UIColorExtension.swift */,
 				1FCCA8572547C3E1008E3D74 /* UICollectionViewCellExtension.swift */,
 				1F6C5B38254BE950007BAF1F /* StringExtension.swift */,
+				1F6C5B3B254C2461007BAF1F /* DictionaryExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 				1FCCA8932549A555008E3D74 /* APIResponse.swift in Sources */,
 				1FCCA8382545B242008E3D74 /* UIViewExtension.swift in Sources */,
 				1FCCA82C2545AD57008E3D74 /* TypeHelper.swift in Sources */,
+				1F6C5B3C254C2461007BAF1F /* DictionaryExtension.swift in Sources */,
 				1F6C5B39254BE950007BAF1F /* StringExtension.swift in Sources */,
 				1FCCA87E2549A215008E3D74 /* APIClient.swift in Sources */,
 				1FCCA88D2549A524008E3D74 /* ParametersEncoding.swift in Sources */,
@@ -439,6 +446,7 @@
 				1F6C5B18254A60F9007BAF1F /* EntryResponseModel.swift in Sources */,
 				1F6C5B34254AF3DC007BAF1F /* FeedResponseModel.swift in Sources */,
 				1F6C5B26254AEBEE007BAF1F /* LinkAttributesResponseModel.swift in Sources */,
+				1F6C5B4A254C3A70007BAF1F /* Connectivitiy.swift in Sources */,
 				1F6C5B12254A600A007BAF1F /* SingleResponseModel.swift in Sources */,
 				1FCCA81225459353008E3D74 /* FeedViewController.swift in Sources */,
 				1FCCA8962549A569008E3D74 /* Task.swift in Sources */,
