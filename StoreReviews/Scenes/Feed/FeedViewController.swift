@@ -137,17 +137,11 @@ class FeedViewController: BaseViewController, UICollectionViewDelegateFlowLayout
 	}
 	
 	func saveSearchedKeys(searchText: String) {
-	if searchText.count > 3 {
+		if searchText.count > 3 {
+			var searches = Dictionary<String, Any>()
 
-
-
-		var searches = Dictionary<String, Any>()
-
-
-
-
-		if var popularSearches = UserDefaults.standard.dictionary(forKey: SEARCH_KEYS) {
-		if popularSearches[searchText] != nil {
+			if var popularSearches = UserDefaults.standard.dictionary(forKey: SEARCH_KEYS) {
+				if popularSearches[searchText] != nil {
 					let updatedValue = (popularSearches[searchText]) as! Int + 1
 					popularSearches.updateValue(updatedValue, forKey: searchText)
 				} else {
@@ -179,7 +173,8 @@ extension FeedViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar,textDidChange searchText: String) {
 		if searchText.isEmpty {
 			self.reviewList = self.allReviews
-			feedCollectionViewAdapter?.updateDatasource(dataSource: self.reviewList)}
+			feedCollectionViewAdapter?.updateDatasource(dataSource: self.reviewList)
+		}
 	}
 }
 extension FeedViewController: UISearchTextFieldDelegate {
